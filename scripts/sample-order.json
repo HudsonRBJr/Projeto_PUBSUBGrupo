@@ -1,0 +1,53 @@
+{
+  "uuid": "ORD-2026-0001",
+  "created_at": "2026-09-13T18:00:00Z",
+  "channel": "mobile_app",
+  "status": "shipped",
+  "customer": {
+    "id": 7788,
+    "name": "Maria Oliveira",
+    "email": "maria@email.com",
+    "document": "987.654.321-00"
+  },
+  "seller": {
+    "id": 55,
+    "name": "Tech Store",
+    "city": "Sao Paulo",
+    "state": "SP"
+  },
+  "items": [
+    {
+      "id": 1,
+      "product": {
+        "id": "abc-1344",
+        "title": "Televisao bonita"
+      },
+      "unit_price": 2500.00,
+      "quantity": 2,
+      "category": {
+        "id": "ELEC",
+        "name": "Eletronicos",
+        "sub_category": {
+          "id": "TV",
+          "name": "Televisores"
+        }
+      }
+    }
+  ],
+  "shipment": {
+    "carrier": "Correios",
+    "service": "SEDEX",
+    "status": "shipped",
+    "tracking_code": "BR123456789"
+  },
+  "payment": {
+    "method": "pix",
+    "status": "approved",
+    "transaction_id": "pay_987654321"
+  },
+  "metadata": {
+    "source": "app",
+    "user_agent": "Mozilla/5.0...",
+    "ip_address": "10.0.0.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "projeto-mensageria",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Consumidor Pub/Sub + API REST para persistencia e consulta de pedidos de marketplace.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "consumer": "node src/consumer.js",
+    "db:init": "node scripts/initDb.js",
+    "publish:sample": "node scripts/publishSample.js"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^4.11.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  }
+}
