@@ -44,6 +44,21 @@ CREATE TABLE IF NOT EXISTS pedido (
     indexed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+ALTER TABLE pedido
+DROP CONSTRAINT IF EXISTS pedido_status_check;
+
+ALTER TABLE pedido
+ADD CONSTRAINT pedido_status_check
+CHECK (
+    status IN (
+        'created',
+        'paid',
+        'shipped',
+        'delivered',
+        'canceled'
+    )
+);
+
 CREATE TABLE IF NOT EXISTS item_pedido (
     order_uuid TEXT NOT NULL REFERENCES pedido(uuid) ON DELETE CASCADE,
     id BIGINT NOT NULL,

@@ -1,5 +1,13 @@
 import { pool } from '../db.js';
 
+const VALID_ORDER_STATUSES = new Set([
+  'created',
+  'paid',
+  'shipped',
+  'delivered',
+  'canceled'
+]);
+
 function assertOrderPayload(order) {
   const required = [
     ['uuid', order?.uuid],
@@ -14,7 +22,16 @@ function assertOrderPayload(order) {
     .map(([name]) => name);
 
   if (missing.length > 0) {
-    throw new Error(`Payload invalido. Campos obrigatorios ausentes: ${missing.join(', ')}`);
+    throw new Error(
+      `Payload invalido. Campos obrigatorios ausentes: ${missing.join(', ')}`
+    );
+  }
+
+  if (!VALID_ORDER_STATUSES.has(order.status)) {
+    throw new Error(
+      `Payload invalido. Status "${order.status}" nao permitido. ` +
+      'Valores permitidos: created, paid, shipped, delivered, canceled.'
+    );
   }
 
   if (!Array.isArray(order.items)) {
@@ -30,6 +47,21 @@ function assertOrderPayload(order) {
       item?.quantity == null
     ) {
       throw new Error(`Payload invalido no item de indice ${index}.`);
+    }
+
+    const unitPrice = Number(item.unit_price);
+    const quantity = Number(item.quantity);
+
+    if (!Number.isFinite(unitPrice) || unitPrice < 0) {
+      throw new Error(
+        `Payload invalido no item de indice ${index}: unit_price invalido.`
+      );
+    }
+
+    if (!Number.isInteger(quantity) || quantity <= 0) {
+      throw new Error(
+        `Payload invalido no item de indice ${index}: quantity invalida.`
+      );
     }
   }
 }
@@ -148,8 +180,7 @@ export async function persistOrder(order) {
         payment_method = EXCLUDED.payment_method,
         payment_status = EXCLUDED.payment_status,
         transaction_id = EXCLUDED.transaction_id,
-        metadata = EXCLUDED.metadata,
-        indexed_at = NOW()
+        metadata = EXCLUDED.metadata
       `,
       [
         order.uuid,
@@ -198,7 +229,6 @@ export async function persistOrder(order) {
 
     return {
       uuid: order.uuid,
-      indexed_at: new Date().toISOString()
     };
   } catch (error) {
     await client.query('ROLLBACK');

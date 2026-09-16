@@ -205,16 +205,19 @@ function buildFinancialFilters(query, params) {
   }
 
   if (query.start_date) {
-    where.push(`p.created_at >= ${addParam(params, query.start_date)}::timestamptz`);
+    const param = addParam(params, query.start_date);
+    where.push(`p.created_at >= ${param}::date`);
   }
 
   if (query.end_date) {
-    where.push(`p.created_at <= ${addParam(params, query.end_date)}::timestamptz`);
+    const param = addParam(params, query.end_date);
+    where.push(
+      `p.created_at < (${param}::date + INTERVAL '1 day')`
+    );
   }
 
   return where;
 }
-
 function financialCte(whereSql) {
   return `
     WITH filtered_orders AS (

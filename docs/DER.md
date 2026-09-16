@@ -4,9 +4,10 @@ O diagrama abaixo representa a estrutura relacional usada pelo projeto.
 
 ```mermaid
 erDiagram
+
     CLIENTE ||--o{ PEDIDO : realiza
-    SELLER ||--o{ PEDIDO : recebe
-    PEDIDO ||--|{ ITEM_PEDIDO : contem
+    SELLER |o--o{ PEDIDO : recebe
+    PEDIDO ||--o{ ITEM_PEDIDO : contem
     PRODUTO ||--o{ ITEM_PEDIDO : referencia
 
     CLIENTE {
@@ -51,7 +52,7 @@ erDiagram
     }
 
     ITEM_PEDIDO {
-        TEXT order_uuid PK,FK
+        TEXT order_uuid PK, FK
         BIGINT id PK
         TEXT product_id FK
         NUMERIC unit_price
@@ -59,5 +60,5 @@ erDiagram
     }
 ```
 
-> O valor total do item e o valor total do pedido **nao sao armazenados**:
-> eles sao calculados dinamicamente pela API.
+> O valor total do item e o valor total do pedido **não são armazenados**:
+> eles são calculados dinamicamente pela API.

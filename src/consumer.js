@@ -17,7 +17,8 @@ const pubsub = new PubSub({
 
 const subscription = pubsub.subscription(config.pubsubSubscription, {
   flowControl: {
-    maxMessages: 10
+    maxMessages: 1,
+    allowExcessMessages: false
   }
 });
 
@@ -56,7 +57,7 @@ subscription.on('error', (error) => {
 async function shutdown(signal) {
   console.log(`\n[consumer] ${signal} recebido. Encerrando...`);
 
-  await subscription.close().catch(() => {});
+  await subscription.close().catch(() => { });
   await closePool();
 
   process.exit(0);

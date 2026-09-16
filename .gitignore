@@ -1,0 +1,7 @@
+.env
+node_modules/
+sa-grupo-h-key.json
+logs
+coverage
+VS Code / IDE files
+Windows/macOS junk files
