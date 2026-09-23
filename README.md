@@ -9,6 +9,8 @@ O sistema simula o processamento assíncrono de pedidos de um marketplace. Os pe
 - Hudson Ribeiro Barbara Junior
 
 - Maria Clara Cardoso Costa
+  
+- Gustavo Schizari Ferreira Filho
 
 ## Objetivo
 
