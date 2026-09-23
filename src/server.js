@@ -4,6 +4,7 @@ import { closePool } from './db.js';
 
 const server = app.listen(config.port, () => {
   console.log(`[api] http://localhost:${config.port}`);
+  console.log(`[api] documentacao: http://localhost:${config.port}/docs`);
 });
 
 async function shutdown(signal) {
