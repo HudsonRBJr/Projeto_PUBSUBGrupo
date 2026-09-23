@@ -12,6 +12,8 @@ O sistema simula o processamento assíncrono de pedidos de um marketplace. Os pe
   
 - Gustavo Schizari Ferreira Filho
 
+- Eduardo Gibertoni Camillo
+
 ## Objetivo
 
 O projeto implementa o seguinte fluxo:
